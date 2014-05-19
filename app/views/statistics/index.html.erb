@@ -1,0 +1,26 @@
+<% content_for :side do %>
+  <%= render 'shared/gamification/points_leaderboard' %>
+<% end %>
+
+<h3>Výzva!</h3>
+Tyto otázky působí ostatním největší problémy. Troufneš si na ně?
+<br><br>
+
+<div class='item'>
+  <% @hardest_tasks.each do |task| %>
+  <div style='margin-bottom: 8px;'>
+    Úspěšnost: <b><%= task.get_success_rate.to_i %> %</b><br>
+    <b><%= link_to task.query.html_safe, do_task_path(task) %></b>
+  </div>
+<% end %>
+</div>
+
+<div class='item'>
+  Počet registrovaných uživatelů: <b><%= @users.count %></b>
+</div>
+
+<div class='item'>
+  Počet <%= link_to 'lehkých otázek', next_task_path(next_category: 'any', next_difficulty: 1) %>: <b><%= @tasks.where(:difficulty => 1).count %></b><br>
+  Počet <%= link_to 'středně těžkých otázek', next_task_path(next_category: 'any', next_difficulty: 2) %>: <b><%= @tasks.where(:difficulty => 2).count %></b><br>
+  Počet <%= link_to 'těžkých otázek', next_task_path(next_category: 'any', next_difficulty: 3) %>: <b><%= @tasks.where(:difficulty => 3).count %></b>
+</div>

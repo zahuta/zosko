@@ -1,0 +1,440 @@
+/*
+ *= require_self
+ *= require_tree .
+ */
+
+$blue: #40adcf;
+$dblue: #30839c;
+$red: #df535b;
+$green: #55b370;
+$orange: #dfaa2f;
+$two: #2a71a6;
+$four: #903c53;
+$six: #665984;
+$seven: #9d8bc5;
+$eight: #58bbb3;
+$ten: #62707c;
+$eleven: #f78460;
+$radius: 4px;
+$max: 999px;
+
+
+.awesome {
+  font-family: FontAwesome;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.clear {
+  clear: both;
+}
+
+.red {
+  background-color: $red;
+}
+
+.green {
+  background-color: $green;
+}
+
+.blue {
+  background-color: $blue;
+}
+
+.orange {
+  background-color: $orange;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font: 300 16px MuseoSans;
+  line-height: 1.5;
+  color: #333;
+  background: #eee;
+}
+
+.container {
+  width: 992px;
+  min-height: 100%;
+  margin: 0 auto -96px;
+}
+
+footer, .push {
+  height: 96px;
+}
+
+footer {
+  font-size: 12px;
+  color: #666;
+  background: #ddd;
+
+  .footer_container {
+    width: 992px;
+    margin: 0 auto;
+    padding: 32px 0;
+
+    a {
+      color: #666;
+      font-weight: 700;
+    }
+
+    a:hover {
+      color: $blue;
+    }
+  }
+}
+
+a, a:active, a:visited {
+  color: $blue;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $dblue;
+}
+
+a.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  width: 100%;
+  font-weight: 500;
+  text-align: center;
+  color: #fff;
+  background: $blue;
+  border-radius: $radius;
+}
+
+a.btn:hover {
+  background: $dblue;
+}
+
+.menu {
+  margin-bottom: 16px;
+  color: #fff;
+  background: $blue;
+
+  a {
+    display: inline-block;
+    border-radius: $max;
+    color: #fff;
+    margin: 16px 0;
+    padding: 8px 16px;
+  }
+
+  a:hover {
+    background-color: $dblue;
+  }
+}
+
+.box {
+  box-sizing: border-box;
+  margin: 16px 0;
+  padding: 32px;
+  background: #fff;
+  border-radius: $radius;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.main {
+  width: 640px;
+}
+
+.side {
+  width: 320px;
+  text-align: left;
+
+  a.btn {
+    margin-bottom: 8px;
+  }
+
+  .tidbit {
+    margin-top: 16px;
+  }
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+.item {
+  padding: 24px;
+  margin-bottom: 16px;
+  background: #eee;
+  border-top: 6px solid #ddd;
+  border-radius: $radius;
+
+  .actions {
+    margin-top: 16px;
+
+    a.awesome {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #fff;
+      border-radius: $radius;
+    }
+  }
+
+  .item_tiny_info {
+    display: inline-block;
+    margin: 0 8px;
+    font-size: 12px;
+    color: #666;
+  }
+}
+
+.item:hover {
+  background: #f2f2f2;
+  border-top-color: #e1e1e1;
+}
+
+.progress_bar {
+  margin-bottom: 16px;
+  height: 8px;
+  border-radius: $max;
+}
+
+#notice {
+  padding: 16px 24px;
+  color: #fff;
+  background: #666;
+  border-radius: 4px;
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  #close_notice_btn {
+    display: inline-block;
+    float: right;
+    margin-top: 4px;
+    width: 16px;
+    height: 16px;
+    background: image-url('buttons/close.png') no-repeat;
+    background-size: contain;
+  }
+}
+
+form {
+  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: $radius;
+
+  input, textarea {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 8px;
+    font-size: 14px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: $radius;
+  }
+
+  label, input[type=checkbox], input[type=radio] {
+    width: auto;
+    margin-bottom: 0;
+    margin-left: 4px;
+  }
+
+  textarea {
+    line-height: 1.5;
+    resize: vertical;
+  }
+
+  input[type=submit] {
+    width: 542px;
+    margin: 16px;
+    padding: 16px;
+    font: 500 18px MuseoSans;
+    color: white;
+    background: $blue;
+  }
+
+  input[type=submit]:hover {
+    cursor: pointer;
+    background: $dblue;
+  }
+
+  .grouped {
+    padding: 24px 16px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .grouped.feelings a {
+    display: inline-block;
+    margin-left: 4px;
+    padding: 4px 8px;
+    color: #fff;
+    background: $blue;
+    border-radius: $radius;
+  }
+
+  .title {
+    margin: 0 8px;
+  }
+
+  .query {
+    margin: 16px 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .excerpt {
+    margin: 16px 0 8px;
+    padding: 16px;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: $radius;
+
+    p {
+      padding-bottom: 4px;
+      text-indent: 8pt;
+    }
+  }
+
+  .choice {
+    display: block;
+    margin-bottom: 16px;
+
+    label {
+      display: inline-block;
+      vertical-align: text-top;
+      width: 512px;
+  }
+}
+
+.choice:last-child {
+  margin-bottom: 0;
+}
+
+.explanation {
+  margin: 0 0 16px 24px;
+  font-weight: 700;
+}
+
+a.btn {
+  font-size: 18px;
+  padding: 16px;
+}
+}
+
+.result {
+  margin-bottom: 16px;
+  padding: 16px 24px;
+  color: white;
+  border-radius: 4px;
+}
+
+.achievement {
+  img {
+    display: inline-block;
+    vertical-align: top;
+    width: 128px;
+    height: 128px;
+  }
+
+  .info {
+    display: inline-block;
+    width: 368px;
+    margin: 4px 0 0 16px;
+
+    .description {
+      margin-bottom: 8px;
+    }
+
+    .time {
+      font-size: 14px;
+    }
+  }
+}
+
+#dashboard_leaderboard_wrapper {
+  line-height: 1.5;
+
+  h3 {
+    padding-bottom: 8px;
+  }
+
+  .user {
+    padding-bottom: 4px;
+  }
+
+  .this {
+    color: $green;
+  }
+
+  .position {
+    display: inline-block;
+    min-width: 16px;
+  }
+
+  .name, .points {
+    font-weight: bold;
+  }
+}
+
+#dashboard_skills_wrapper {
+  .item {
+    .info {
+      margin-bottom: 16px;
+    }
+
+    .stats {
+      font-size: 18px;
+      padding: 8px 0;
+    }
+
+    .actions {
+      a.btn {
+        display: inline-block;
+        margin: 0;
+        padding: 4px 8px;
+        width: auto;
+        color: #fff;
+        background: $blue;
+        font-size: 14px;
+        border-radius: $max;
+        padding: 4px 12px;
+      }
+
+      a.btn:hover {
+        background: $dblue;
+      }
+
+      .note {
+        margin: 8px 2px 0;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+#achievement_notification .achievement img {
+  width: 96px;
+  height: 96px;
+}

@@ -1,0 +1,31 @@
+<% content_for :side do %>
+  <%= link_to 'Vytvořit novou otázku', new_admin_task_path, class: :btn %>
+<% end %>
+
+<% none = true %>
+<% @tasks.each do |task| %>
+  <% none = false %>
+  <div class='item'>
+    <b><%= "#{task.id} :: #{task.title}" %></b>
+    <br>
+    <%= task.query.html_safe %>
+    <div class='actions'>
+      <div class='left'>
+        <%= link_to '&#xf06e;'.html_safe, do_task_path(task), class: 'awesome' %>
+        <%= link_to '&#xf040;'.html_safe, edit_admin_task_path(task), class: 'awesome' %>
+        <span class='item_tiny_info'><%= task.get_type.capitalize %> (<%= task.difficulty %>)</span>
+      </div>
+      <div class='right'>
+        <span class='item_tiny_info'>Úspěšnost: <b><%= task.get_success_rate.to_i %> %</b></span>
+        <%= link_to '&#xf014;'.html_safe, admin_task_path(task), class: 'awesome', method: :delete, data: { confirm: 'Jste si jisti?' } %>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+<% end %>
+
+<% if none %>
+  <div class='center'>
+    <h3>Žádné otázky</h3>
+  </div>
+<% end %>

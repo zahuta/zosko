@@ -1,0 +1,19 @@
+<div class='tidbit'>
+  Tuto otázku správně zodpovědělo přibližně <b><%= @success_rate.to_i %> %</b> lidí.
+</div>
+<div class='tidbit'>
+  Kategorie:<br>
+  <% @task.categories.each do |category| %>
+    <b><%= category.name %></b><br>
+  <% end %>
+</div>
+<div class='tidbit'>
+  Obtížnost:<br>
+  <b><%= @task.difficulty %> / 3</b>
+</div>
+
+<% if current_user.admin %>
+  <div class='tidbit'>
+    <%= link_to 'Upravit otázku', edit_admin_task_path(@task) %>
+  </div>
+<% end %>

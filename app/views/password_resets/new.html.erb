@@ -1,0 +1,11 @@
+<% content_for :side do %>
+  Na e-mail Vám bude zaslán odkaz, pomocí něhož si budete moci zvolit nové heslo
+<% end %>
+
+<%= form_tag password_resets_path do %>
+  <div class='grouped'>
+    <%= label_tag :email, 'E-mail' %>
+    <%= text_field_tag :email %>
+  </div>
+  <%= submit_tag 'Odeslat' %>
+<% end %>

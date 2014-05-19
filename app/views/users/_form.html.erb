@@ -1,0 +1,13 @@
+<%= form_for(@user) do |f| %>
+  <div class='grouped'>
+    <%= f.label :name, 'Jméno' %>
+    <%= f.text_field :name %>
+    <%= f.label :email, 'E-mail' %>
+    <%= f.text_field :email %>
+    <%= f.label :password, 'Heslo' %>
+    <%= f.password_field :password %>
+    <%= f.label :password_confirmation, 'Heslo (znovu)' %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <%= f.submit 'Uložit' %>
+<% end %>

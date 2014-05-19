@@ -1,0 +1,73 @@
+<% content_for :side do %>
+  <% if session[:next_category] && session[:next_difficulty] %>
+    <%= link_to 'Další otázka', next_task_path, class: 'btn' %>
+  <% end %>
+  <%= render 'stats' %>
+<% end %>
+
+<% case @result %>
+<% when 0 %>
+  <div class='red result'>
+    <div class='left'>Otázka nebyla zodpovězena.</div>
+    <div class='right'><b>+<%= @gain %> bodů</b></div>
+    <div class='clear'></div>
+  </div>
+<% when 1 %>
+  <div class='red result'>
+    <div class='left'>Bohužel, to nebyla správná odpověď :(</div>
+    <div class='right'><b>+<%= @gain %> bodů</b></div>
+    <div class='clear'></div>
+  </div>
+<% when 2 %>
+  <div class='orange result'>
+    <div class='left'>Škoda, něco nebylo úplně v pořádku.</div>
+    <div class='right'><b>+<%= @gain %> bodů</b></div>
+    <div class='clear'></div>
+  </div>
+<% when 3 %>
+  <div class='green result'>
+    <div class='left'>Skvěle, naprosto správně :)</div>
+    <div class='right'><b>+<%= @gain %> bodů</b></div>
+    <div class='clear'></div>
+  </div>
+<% end %>
+
+<%= form_tag do %>
+  <div class='grouped'>
+    <% if @task.title != '' %>
+      <div class='title'>
+        <%= @task.title %>
+      </div>
+    <% end %>
+    <div class='query'>
+      <%= @task.query.html_safe %>
+    </div>
+    <% if @task.excerpt != '' %>
+      <div class='excerpt'>
+        <%= @task.excerpt.html_safe %>
+      </div>
+    <% end %>
+  </div>
+  <div class='grouped choices'>
+    <% @task.choices.each do |choice| %>
+      <div class='choice'>
+        <% if @type == 'checkbox' %>
+          <%= check_box_tag '', choice.id, choice.correct, disabled: true %>
+        <% elsif @type == 'radio' %>
+          <%= radio_button_tag '', choice.id, choice.correct, disabled: true %>
+        <% end %>
+        <%= label_tag '', choice.text.html_safe %>
+        <% if choice.explanation != '' %>
+          <div class='explanation'>
+            <%= choice.explanation.html_safe %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class='grouped'>
+    <% if session[:next_category] && session[:next_difficulty] %>
+      <%= link_to 'Další otázka', next_task_path, class: 'btn' %>
+    <% end %>
+  </div>
+<% end %>

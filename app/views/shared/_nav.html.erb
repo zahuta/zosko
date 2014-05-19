@@ -1,0 +1,30 @@
+<nav class='menu'>
+  <div class='container'>
+
+    <div class='left'>
+      <%= link_to '{{ ZOSKO }}', root_path, :style => 'font-weight: 900;' %>
+
+      <% if current_user %>
+        <%= link_to 'Domů', root_path %>
+        <%= link_to 'Odznaky', achievements_path %>
+        <%= link_to 'Statistiky', statistics_path %>
+        <% if current_user.admin %>
+          <%= link_to 'Kategorie', admin_categories_path %>
+          <%= link_to 'Otázky', admin_tasks_path %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class='right'>
+      <% if current_user %>
+        <%= link_to 'Nastavení', edit_user_path(current_user) %>
+        <%= link_to 'Odhlášení', logout_path %>
+      <% else %>
+        <%= link_to 'Přihlášení', login_path %>
+        <%= link_to 'Registrace', signup_path %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='clear'></div>
+</nav>

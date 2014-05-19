@@ -1,0 +1,13 @@
+<%= form_for [:admin, @category] do |f| %>
+  <div class='grouped'>
+    <%= f.label :name, 'Název kategorie' %>
+    <%= f.text_field :name %>
+
+    <%= f.label :description, 'Popis kategorie' %>
+    <%= f.text_area :description %>
+
+    <%= f.check_box :visible %>
+    <b><%= f.label :visible, 'Zobrazit studentům' %></b>
+  </div>
+  <%= f.submit 'Uložit' %>
+<% end %>

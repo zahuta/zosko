@@ -1,0 +1,19 @@
+<div class='grouped'>
+  <b><%= f.label :text, 'Možnost:' %></b>
+  <%= f.text_area :text %>
+
+  <%= f.label :explanation, 'Vysvětlení' %>
+  <%= f.text_area :explanation %>
+
+  <div style='float: left; width: auto;'>
+    <%= f.check_box :correct %>
+    <b><%= f.label :correct, 'Správná možnost' %></b>
+  </div>
+
+  <div style='float:right; width: auto;'>
+    <%= f.label :_destroy, 'Smazat možnost' %>
+    <%= f.check_box :_destroy %>
+  </div>
+
+  <div class='clear'></div>
+</div>

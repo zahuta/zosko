@@ -1,0 +1,27 @@
+<% content_for :side do %>
+  <%= render 'shared/gamification/achievements_leaderboard' %>
+<% end %>
+
+<h3>Vaše odznaky</h3>
+Každý odznak, který se vám podaří získat, se ojeví zde.<br><br>
+
+<% none = true %>
+<% @achievements.each do |achievement| %>
+  <% none = false %>
+  <% badge = Badge.find_by(id: achievement.badge_id) %>
+
+  <div class='achievement item'>
+    <%= image_tag "/assets/badges/#{badge.name}.png" %>
+    <div class='info'>
+      <h3><%= badge.title %></h3>
+      <div class='description'><%= badge.description %></div>
+      <div class='time'>Získáno: <b><%= achievement.created_at.to_s(:cz_date_time) %></b></div>
+    </div>
+  </div>
+<% end %>
+
+<% if none %>
+  <div class='center'>
+    <h3>Žádné odznaky</h3>
+  </div>
+<% end %>

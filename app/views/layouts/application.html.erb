@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ZOSKO</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= render 'shared/nav' %>
+
+<div class='container'>
+
+  <% if notice %>
+    <div id='notice'>
+      <%= notice %>
+      <%= link_to '', '', id: 'close_notice_btn' %>
+    </div>
+  <% end %>
+
+  <% if content_for?(:side) %>
+    <div class='side box right'>
+      <%= yield :side %>
+    </div>
+  <% end %>
+
+  <% if session[:new_badge] %>
+
+    <% latest_achievement = current_user.achievements.order(created_at: :desc).first %>
+    <% badge = Badge.find_by(id: latest_achievement.badge_id) %>
+
+    <div id='achievement_notification' class='left main box'>
+      <div class='achievement'>
+        <%= image_tag "/assets/badges/#{badge.name}.png" %>
+        <div class='info'>
+          <h3><%= badge.title %></h3>
+          <div class='description'><%= badge.description %></div>
+          <%= link_to 'Všechny získané odznaky', achievements_path %>
+        </div>
+      </div>
+    </div>
+    <% session[:new_badge] = false %>
+  <% end %>
+
+  <div class='main box left'>
+    <%= yield %>
+  </div>
+
+  <div class='push'></div>
+</div>
+
+<%= render 'shared/footer' %>
+
+</body>
+</html>

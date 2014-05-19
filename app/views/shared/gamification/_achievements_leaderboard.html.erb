@@ -1,0 +1,15 @@
+<div id='dashboard_leaderboard_wrapper'>
+<h3>Žebříček odznaků</h3>
+<% @leaderboard_users.each_with_index do |user, index| %>
+  <div class='<%= 'this' if current_user == user %> user'>
+    <div class='left'>
+      <span class='position'><%= index + 1 %>.</span>
+      <span class='name'><%= user.name %></span>
+    </div>
+    <div class='right'>
+      <span class='points'><%= user.achievements.count %></span>
+    </div>
+    <div class='clear'></div>
+  </div>
+<% end %>
+</div>

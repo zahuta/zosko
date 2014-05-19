@@ -1,0 +1,47 @@
+<% content_for :side do %>
+  <% if session[:next_category] && session[:next_difficulty] %>
+    <%= link_to 'Neodpovídal/a jsem', next_task_path, class: 'btn' %>
+  <% end %>
+  <%= render 'stats' %>
+<% end %>
+
+<div class='green result'>
+  <div class='left'>Otevřené odpovědi si, prosím, ohodnoťte sami dle svého uvážení.</div>
+  <div class='clear'></div>
+</div>
+
+<%= form_tag do %>
+  <div class='grouped'>
+    <% if @task.title != '' %>
+      <div class='title'>
+        <%= @task.title %>
+      </div>
+    <% end %>
+    <div class='query'>
+      <%= @task.query.html_safe %>
+    </div>
+    <% if @task.excerpt != '' %>
+      <div class='excerpt'>
+        <%= @task.excerpt.html_safe %>
+      </div>
+    <% end %>
+  </div>
+  <div class='grouped choices'>
+    <%= text_area_tag '', params[:text], disabled: true %>
+    <% @task.choices.each do |choice| %>
+      <div class='choice'>
+        <%= check_box_tag '', choice.id, choice.correct, disabled: true %>
+        <%= label_tag '', choice.text.html_safe %><br>
+        <div class='explanation'>
+          <%= choice.explanation.html_safe %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='grouped feelings'>
+    Odpověděl jsem
+    <%= link_to 'Dobře', evaluate_task_path(params.merge(feeling: 3)), method: 'patch' %>
+    <%= link_to 'Špatně', evaluate_task_path(params.merge(feeling: 1)), method: 'patch' %>
+    <%= link_to 'Něco mezi', evaluate_task_path(params.merge(feeling: 2)), method: 'patch' %>
+  </div>
+<% end %>

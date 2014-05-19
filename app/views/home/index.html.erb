@@ -1,0 +1,99 @@
+<% content_for :side do %>
+  <%= link_to 'Náhodná otázka', next_task_path(next_category: 'any', next_difficulty: 'any'), class: 'btn' %>
+  <br><br>
+  <%= render 'shared/gamification/points_leaderboard' %>
+<% end %>
+
+<section id='user_info'>
+  <div class='left'>
+    <h3><%= @user.name %></h3>
+    Registrace: <b><%= @user.created_at.to_s(:cz_date) %></b><br>
+  </div>
+  <div class='right'>
+    <h3><%= @user.points %> bodů</h3>
+    Streak: <b><%= @streak %></b>
+  </div>
+  <div class='clear'></div>
+</section>
+
+<section id='dashboard_skills_wrapper'>
+  <h3>Naučte se něco nového!</h3>
+  Vyberte si oblast, ve které byste se chtěli zlepšit, zvolte obtížnost a začněte!
+  <br><br>
+
+  <% @categories.where(:visible => true).each do |category| %>
+    <% skill = @user.skills.find_by(category: category) %>
+
+    <div class='item'>
+
+      <!-- Ukazatel počtu správně zodpovězených otázek v kategorii -->
+      <% answered = @user.answers.where('task_id in (?) and state = 3', category.tasks.map(&:id)).count %>
+      <% total = category.tasks.count %>
+      <% completed = 0 %>
+      <% if total != 0 %>
+        <% completed = ((answered.to_d / total.to_d ) * 100).to_i %>
+        <% if answered != 0 %>
+          <div class='green progress_bar' style='width: <%= completed %>%'></div>
+        <% end %>
+      <%end%>
+
+      <div class='info'>
+        <h2><%= category.name %></h2>
+        <%= category.description %>
+      </div>
+
+      <% if skill %>
+        <div class='stats'>
+          <div class='left'>
+            <b><%= skill.points %></b> bodů<br>
+            <!--Level: <b><%= skill.level %></b>-->
+          </div>
+          <div class='right'>
+            <b><%= answered %></b> / <%= total %>&nbsp;<br>
+            <b><%= completed %></b> %&nbsp;
+          </div>
+          <div class='clear'></div>
+        </div>
+      <% end %>
+
+      <div class='actions'>
+        <div class='left'>
+
+          <% no_answers_exist = (@user.answers.where('task_id in (?)', category.tasks.map(&:id))).empty? %>
+          <% easy_tasks_exist = !category.tasks.where(:difficulty => 1).empty? %>
+          <% medium_tasks_exist = !category.tasks.where(:difficulty => 2).empty? %>
+          <% hard_tasks_exist = !category.tasks.where(:difficulty => 3).empty? %>
+
+          <!-- Pokud uživatel v dané kategorii ještě na žádnou otázku neodpověděl, zobrazí se nejlehčí neprázdná obtížnost -->
+          <% if no_answers_exist %>
+
+            <% if easy_tasks_exist %>
+              <%= link_to 'Lehké', next_task_path(next_category: category.id, next_difficulty: '1'), class: 'btn' %>
+              &nbsp;Začněte zde. Náročnější otázky se zpřístupní později.
+            <% elsif medium_tasks_exist %>
+              <%= link_to 'Středně těžké', next_task_path(next_category: category.id, next_difficulty: '2'), class: 'btn' %>
+              &nbsp;Začněte zde.
+            <% elsif hard_tasks_exist %>
+              <%= link_to 'Těžké', next_task_path(next_category: category.id, next_difficulty: '3'), class: 'btn' %>
+              Začněte zde.
+            <% end %>
+
+          <% else %>
+
+            <!-- Pokud uživatel již v rámci kategorie odpovídal, vypíšou se všechny neprázdné obtížnosti -->
+            <%= link_to 'Lehké', next_task_path(next_category: category.id, next_difficulty: 1), class: 'btn' if easy_tasks_exist %>
+            <%= link_to 'Středně těžké', next_task_path(next_category: category.id, next_difficulty: '2'), class: 'btn' if medium_tasks_exist %>
+            <%= link_to 'Těžké', next_task_path(next_category: category.id, next_difficulty: '3'), class: 'btn' if hard_tasks_exist %>
+
+          <% end %>
+        </div>
+        <% if !no_answers_exist %>
+          <div class='right'>
+            <%= link_to 'Všechny otázky', next_task_path(next_category: category.id, next_difficulty: 'any'), class: 'btn' %>
+          </div>
+        <% end %>
+        <div class='clear'></div>
+      </div>
+    </div>
+  <% end %>
+</section>

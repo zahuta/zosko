@@ -1,0 +1,45 @@
+<% content_for :side do %>
+  <% if session[:next_category] && session[:next_difficulty] %>
+    <%= link_to 'Přeskočit otázku', next_task_path, class: 'btn' %>
+  <% end %>
+  <%= render 'stats' %>
+<% end %>
+
+<%= form_for @task, :url => { :action => 'evaluate' } do |f| %>
+  <div class='grouped'>
+    <% if @task.title != '' %>
+      <div class='title'>
+        <%= @task.title %>
+      </div>
+    <% end %>
+    <div class='query'>
+      <%= @task.query.html_safe %>
+    </div>
+    <% if @task.excerpt != '' %>
+      <div class='excerpt'>
+        <%= @task.excerpt.html_safe %>
+      </div>
+    <% end %>
+  </div>
+  <div class='grouped choices'>
+    <% @task.choices.each do |choice| %>
+      <div class='choice'>
+        <% if @type == 'checkbox' %>
+          <%= check_box_tag '[choices][]', choice.id, false, id: "_choices__#{choice.id}" %>
+          <%= label_tag '', choice.text.html_safe, for: "_choices__#{choice.id}" %>
+        <% elsif @type == 'radio' %>
+          <%= radio_button_tag '[choices][]', choice.id %>
+          <%= label_tag '', choice.text.html_safe, for: "_choices__#{choice.id}" %>
+        <% elsif @type == 'text' %>
+          <%= text_area_tag '[choices]text' %>
+
+          <!-- V případě textové odpovědi mi stačí vykreslit pouze jedno textové pole. -->
+          </div>
+          <% break %>
+
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= f.submit 'Odeslat' %>
+<% end %>
